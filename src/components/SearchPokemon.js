@@ -20,7 +20,6 @@ const SearchPokemon = () => {
   };
 
   return (
-    
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <FormControl fullWidth sx={{ m: 1 }} variant="standard">
           <Input

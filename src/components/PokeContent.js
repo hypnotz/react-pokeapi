@@ -31,7 +31,8 @@ const PokeContent = () => {
   }
 
   useEffect(() => {
-    console.log("Set pOkemon ", pokemon);
+    
+    // console.log("pokemon types ", pokemon[0].types[0].type.name);
   }, [pokemon]);
 
   useEffect(() => {
@@ -42,8 +43,8 @@ const PokeContent = () => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {pokemon.map((pokemon) => (
-            <Grid item xs={2} sm={4} md={4} key={pokemon.name} >
+          {pokemon.map((pokemon, indice) => (
+            <Grid item xs={2} sm={4} md={4} key={indice} >
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
@@ -57,7 +58,7 @@ const PokeContent = () => {
                       {pokemon.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {pokemon.url}
+                       {pokemon.types[0]?.type.name} {pokemon?.types[1]?.type.name} 
                     </Typography>
                   </CardContent>
                 </CardActionArea>

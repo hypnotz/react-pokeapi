@@ -11,23 +11,31 @@ import { getPokemons, getInformationPokemon } from "../services/pokemon.services
 import { useState, useEffect } from "react";
 
 
-
-
 const PokeContent = () => {
   const [pokemon, setPokemon] = useState([]);
 
+  const getAllPokemon = async () => {
+    try {
+      const res = await getPokemons();
+      createPokemonList(res);
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+
+  const createPokemonList = (results) => {
+    results.map(async x => {
+      const res = await getInformationPokemon(x.name);
+      setPokemon(list => [...list, res])
+    })
+  }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await Promise.all([
-          getPokemons()
-        ]);
-        setPokemon(response[0]);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
+    console.log("Set pOkemon ", pokemon);
+  }, [pokemon]);
+
+  useEffect(() => {
+    getAllPokemon();
   }, []);
 
   return (
@@ -42,7 +50,7 @@ const PokeContent = () => {
                     component="img"
                     height="140"
                     alt=""
-                    src=""
+                    src={pokemon.sprites["front_default"]}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
@@ -61,14 +69,8 @@ const PokeContent = () => {
               </Card>
             </Grid>
           ))}
-
         </Grid>
       </Box>
-
-
-
-
-
     </>
   );
 };

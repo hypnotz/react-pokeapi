@@ -25,14 +25,19 @@ const PokeContent = () => {
   const [pokemon, setPokemon] = useState([]);
   const [pokemonFiltrado, setPokemonFiltrado] = useState([]);
   const [errorBusqueda, setErrorBusqueda] = useState("");
+  const [countOffSet, setCountOffSet] = useState(0);
+  const [pages, setPages] = useState(0);
+  const [nextPage, setNextPage] = useState(1);
 
-  const getAllPokemon = async () => {
+
+  const getAllPokemon = async (offset) => {
+    setPokemon([]);
     setErrorBusqueda("");
     setPokemonFiltrado([]);
     try {
-      const res = await getPokemons();
-      createPokemonList(res);
-
+      const res = await getPokemons(countOffSet);
+      createPokemonList(res.results);
+      setPages(Math.ceil(res.count / 25));
     } catch (ex) {
       console.log(ex);
     }
@@ -42,16 +47,16 @@ const PokeContent = () => {
     results.map(async x => {
       const res = await getInformationPokemon(x.name);
       setPokemon(list => [...list, res])
-      console.log("p ", res);
+
     })
   }
-
   useEffect(() => {
-    getAllPokemon();
-  }, []);
+    getAllPokemon(countOffSet);
+  }, [countOffSet]);
+
 
   const handleChange = async (event) => {
-    const res = await getInformationPokemon(event.target.value);
+    const res = await getInformationPokemon(event.target.value.toLowerCase());
     if (res === undefined) {
       setPokemon([]);
       setPokemonFiltrado([]);
@@ -99,17 +104,17 @@ const PokeContent = () => {
                     alt=""
                     src={pokemonFiltrado?.sprites["front_default"]}
                   />
-                   <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {pokemonFiltrado?.id} {pokemonFiltrado?.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {pokemonFiltrado?.types[0]?.type.name} {pokemonFiltrado?.types[1]?.type.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {pokemonFiltrado?.id} {pokemonFiltrado?.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {pokemonFiltrado?.types[0]?.type.name} {pokemonFiltrado?.types[1]?.type.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
 
-                      </Typography>
-                    </CardContent>
+                    </Typography>
+                  </CardContent>
                 </CardActionArea>
                 <CardActions>
                   <Link to={`/pokemon/${pokemonFiltrado?.name}`}>
@@ -126,7 +131,7 @@ const PokeContent = () => {
       {pokemon.length > 1 ? <> <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       </Box>
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {pokemon?.map((pokemon, indice) => (
               <Grid item xs={2} sm={4} md={4} key={indice} >
                 <Card sx={{ maxWidth: 250 }}>
@@ -137,15 +142,15 @@ const PokeContent = () => {
                       alt=""
                       src={pokemon?.sprites["front_default"]}
                     />
-                    <CardContent>
+                    <CardContent >
                       <Typography gutterBottom variant="h5" component="div">
-                        {pokemon?.id} {pokemon?.name}
+                        {pokemon?.id}
+                      </Typography>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {pokemon?.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {pokemon?.types[0]?.type.name} {pokemon?.types[1]?.type.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -161,8 +166,11 @@ const PokeContent = () => {
             ))}
           </Grid>
         </Box>  </> : null}
-    </>
 
+      {nextPage <= pages ? <Button onClick={() => { setCountOffSet(countOffSet + 25); setNextPage(nextPage + 1); }}>Página Siguiente</Button> : <h1>Paginacionxd</h1>}
+      {nextPage > 1 ? <Button onClick={() => { setCountOffSet(countOffSet - 25); setNextPage(nextPage - 1); }}>Página Atras</Button> : <></>}
+
+    </>
   );
 };
 

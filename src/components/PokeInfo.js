@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 
 });
 
-
 const PokeInfo = () => {
     const classes = useStyles();
     let urlPokemon = useParams();
@@ -33,6 +32,7 @@ const PokeInfo = () => {
     const [pokemonExtra, setPokemonExtra] = useState([]);
     const [pokeImage, setPokeImage] = useState([]);
     const [pokeAbility, setPokeAbility] = useState([]);
+    
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -48,7 +48,7 @@ const PokeInfo = () => {
             console.log("Result xd ", res);
             setPokemonExtra(res);
             setPokeImage(previousState => [...previousState, res.sprites["front_default"]]);
-            setPokeImage(previousState => [...previousState, res.sprites["back_shiny"]]);
+            setPokeImage(previousState => [...previousState, res.sprites["back_default"]]);
             setPokeAbility(previousState => [...previousState, res.abilities[0].ability.name]);
             // await setPokeAbility(previousState => [...previousState, res.ability.name])
             console.log("Habilidad ", res.abilities[0].ability.name);

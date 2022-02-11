@@ -16,4 +16,13 @@ export const getInformationPokemon = async (pokeName) => {
     } catch (error) {
         console.log(error.response);
     }
-} 
+}
+
+export const getExtraInformationPokemon = async (pokeName) => {
+    try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokeName}/`);
+        return response.data;
+    } catch (error) {
+        console.log(error.response);
+    }
+}

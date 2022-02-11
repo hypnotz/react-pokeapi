@@ -11,9 +11,18 @@ const App = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/pokemon/:name">
+        {/* <Route exact path="/pokemon/:name">
           <PokeInfo />
-        </Route>
+        </Route> */}
+
+        <Route
+        path="/pokemon/:name"
+        render={({ match }) => (
+          
+          <PokeInfo id={match} />
+        )}
+      />
+
       </Switch>
     </Router>
   );

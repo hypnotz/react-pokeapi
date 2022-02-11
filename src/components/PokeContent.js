@@ -22,6 +22,7 @@ const PokeContent = () => {
     try {
       const res = await getPokemons();
       createPokemonList(res);
+     
     } catch (ex) {
       console.log(ex);
     }
@@ -33,12 +34,7 @@ const PokeContent = () => {
       setPokemon(list => [...list, res])
     })
   }
-
-  useEffect(() => {
-
-    // console.log("pokemon types ", pokemon[0].types[0].type.name);
-  }, [pokemon]);
-
+ 
   useEffect(() => {
     getAllPokemon();
   }, []);

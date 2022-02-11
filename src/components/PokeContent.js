@@ -15,8 +15,15 @@ import {
 import { useState, useEffect } from "react";
 
 
+import Input from "@mui/material/Input";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import SearchIcon from "@mui/icons-material/Search";
+
+
 const PokeContent = () => {
   const [pokemon, setPokemon] = useState([]);
+  const [pokemonFiltrado, setPokemonFiltrado] = useState([]);
 
   const getAllPokemon = async () => {
     try {
@@ -40,45 +47,81 @@ const PokeContent = () => {
     getAllPokemon();
   }, []);
 
+
+  const xd = async () => () => {
+    console.log("xdddxdxxddx");
+  }
+  const handleChange = async (event) => {
+    console.log("enttro waka")
+    const res = await getInformationPokemon(event.target.value);
+    console.log("Pokemon filtrado ", res);
+    setPokemon([]);
+    setPokemonFiltrado(res);
+    console.log("POKE FILTRAADO", pokemonFiltrado)
+  };
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {pokemon.map((pokemon, indice) => (
-            <Grid item xs={2} sm={4} md={4} key={indice} >
-              <Card sx={{ maxWidth: 250 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    alt=""
-                    src={pokemon.sprites["front_default"]}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {pokemon.id} {pokemon.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {pokemon.types[0]?.type.name} {pokemon?.types[1]?.type.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
 
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Link to={`/pokemon/${pokemon.name}`}>
-                    <Button size="small" color="primary">
-                      MOSTRAR INFO ADICIONAL
-                    </Button>
-                  </Link>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+
+      {pokemonFiltrado != undefined ? <h2>{pokemonFiltrado?.name} </h2> : <p>No existe el pokemon consultado</p>}
+
+      <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+        <Input
+          id="standard-adornment-amount"
+          onKeyPress={event => {
+            if (event.key === 'Enter') {
+              { handleChange(event) }
+            }
+          }}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+      {pokemon.length > 1 ? <> <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+
       </Box>
+
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {pokemon?.map((pokemon, indice) => (
+              <Grid item xs={2} sm={4} md={4} key={indice} >
+                <Card sx={{ maxWidth: 250 }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      alt=""
+                      src={pokemon?.sprites["front_default"]}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {pokemon?.id} {pokemon?.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {pokemon?.types[0]?.type.name} {pokemon?.types[1]?.type.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Link to={`/pokemon/${pokemon?.name}`}>
+                      <Button size="small" color="primary">
+                        MOSTRAR INFO ADICIONAL
+                      </Button>
+                    </Link>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>  </> : null}
     </>
+
   );
 };
 

@@ -1,13 +1,22 @@
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./components/Home";
+import PokeInfo from './components/PokeInfo';
 
-import './App.css';
-import Home from './components/Home';
+const App = () => {
 
-function App() {
   return (
-    <>
-    <Home />
-    </>
-  )
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/pokemon/:name">
+          <PokeInfo />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;

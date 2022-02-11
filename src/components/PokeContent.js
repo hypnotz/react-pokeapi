@@ -7,6 +7,10 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
 import { getPokemons, getInformationPokemon } from "../services/pokemon.services";
+import {
+  BrowserRouter as Router,
+  Switch, Route, Link
+} from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -31,7 +35,7 @@ const PokeContent = () => {
   }
 
   useEffect(() => {
-    
+
     // console.log("pokemon types ", pokemon[0].types[0].type.name);
   }, [pokemon]);
 
@@ -58,14 +62,16 @@ const PokeContent = () => {
                       {pokemon.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                       {pokemon.types[0]?.type.name} {pokemon?.types[1]?.type.name} 
+                      {pokemon.types[0]?.type.name} {pokemon?.types[1]?.type.name}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
-                  <Button size="small" color="primary">
-                    Mostrar info
-                  </Button>
+                  <Link to={`/pokemon/${pokemon.name}`}>
+                    <Button size="small" color="primary">
+                      Mostrar info
+                    </Button>
+                  </Link>
                 </CardActions>
               </Card>
             </Grid>

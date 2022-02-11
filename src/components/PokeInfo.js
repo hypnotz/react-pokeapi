@@ -2,7 +2,7 @@
 const PokeInfo = () => {
     return (
    
-    <h1>XDDDDD</h1>
+    <h1>Maqueteo info extra</h1>
    
     )
 }

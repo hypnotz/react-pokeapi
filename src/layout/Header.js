@@ -3,9 +3,8 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import CardMedia from "@mui/material/CardMedia";
 
 const Header = () => {
   return (
@@ -19,11 +18,23 @@ const Header = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             POKEMON API
           </Typography>
+          {/* <Box
+        component="img"
+        sx={{
+          height: 60,
+          width: 500,
+          maxHeight: { xs: 233, md: 167 },
+          maxWidth: { xs: 350, md: 250 },
+        }}
+        alt="The house from the offer."
+        src="https://avatars.githubusercontent.com/u/64151210?v=4"
+      /> */}
+
+        
         </Toolbar>
       </AppBar>
     </Box>

@@ -22,7 +22,7 @@ const PokeContent = () => {
     try {
       const res = await getPokemons();
       createPokemonList(res);
-     
+
     } catch (ex) {
       console.log(ex);
     }
@@ -32,9 +32,10 @@ const PokeContent = () => {
     results.map(async x => {
       const res = await getInformationPokemon(x.name);
       setPokemon(list => [...list, res])
+      console.log("p ", res);
     })
   }
- 
+
   useEffect(() => {
     getAllPokemon();
   }, []);
@@ -45,7 +46,7 @@ const PokeContent = () => {
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {pokemon.map((pokemon, indice) => (
             <Grid item xs={2} sm={4} md={4} key={indice} >
-              <Card sx={{ maxWidth: 345 }}>
+              <Card sx={{ maxWidth: 250 }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
@@ -55,17 +56,20 @@ const PokeContent = () => {
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                      {pokemon.name}
+                      {pokemon.id} {pokemon.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       {pokemon.types[0]?.type.name} {pokemon?.types[1]?.type.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+
                     </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
                   <Link to={`/pokemon/${pokemon.name}`}>
                     <Button size="small" color="primary">
-                      Mostrar info
+                      MOSTRAR INFO ADICIONAL
                     </Button>
                   </Link>
                 </CardActions>

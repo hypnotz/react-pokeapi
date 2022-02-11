@@ -22,6 +22,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getInformationPokemon } from "../services/pokemon.services";
+import Paper from '@mui/material/Paper';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -44,13 +45,20 @@ const useStyles = makeStyles({
 
 });
 
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
+
 const PokeInfo = () => {
 
     const classes = useStyles();
     let urlPokemon = useParams();
     const [expanded, setExpanded] = React.useState(false);
     const [pokemonExtra, setPokemonExtra] = useState([]);
-    const [pokeImage, setPokeImage] = useState(null);
+    const [pokeImage, setPokeImage] = useState([]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -64,15 +72,18 @@ const PokeInfo = () => {
     const getInfoExtraPoke = async (name) => {
         try {
             const res = await getInformationPokemon(name);
-            console.log("Result xd ",res.sprites["front_default"]);
+            console.log("Result xd ", res.sprites);
             await setPokemonExtra(res);
-            await setPokeImage(res.sprites["front_default"]);
+            await setPokeImage(previousState => [...previousState, res.sprites["front_default"]]);
+            await setPokeImage(previousState => [...previousState, res.sprites["back_shiny"]]);
         } catch (ex) {
             console.log(ex);
         }
     }
 
-
+    useEffect(() => {
+        console.log()
+    }, [pokeImage])
 
     return (
         <>
@@ -83,26 +94,28 @@ const PokeInfo = () => {
                 alignItems="center"
                 justify="center"
             >
-
-                
-
                 <Card sx={{ maxWidth: 345 }}>
                     <CardHeader
-                       
-                        action={
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon />
-                            </IconButton>
-                        }
                         title={pokemonExtra.name}
-                        
                     />
-                    <CardMedia
-                        component="img"
-                        height="194"
-                        image={pokeImage}
-                        alt="Paella dish"
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={pokeImage[0]}
+                                alt="Paella dish"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={pokeImage[1]}
+                                alt="Paella dish"
+                            />
+                        </Grid>
+                    </Grid>
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             This impressive paella is a perfect party dish and a fun meal to cook

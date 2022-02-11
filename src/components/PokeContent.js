@@ -24,8 +24,10 @@ import SearchIcon from "@mui/icons-material/Search";
 const PokeContent = () => {
   const [pokemon, setPokemon] = useState([]);
   const [pokemonFiltrado, setPokemonFiltrado] = useState([]);
+  const [errorBusqueda, setErrorBusqueda] = useState("");
 
   const getAllPokemon = async () => {
+    setErrorBusqueda("");
     setPokemonFiltrado([]);
     try {
       const res = await getPokemons();
@@ -48,36 +50,31 @@ const PokeContent = () => {
     getAllPokemon();
   }, []);
 
-
-  
   const handleChange = async (event) => {
     const res = await getInformationPokemon(event.target.value);
-    if(res === undefined){
+    if (res === undefined) {
+      setPokemonFiltrado([]);
+      setErrorBusqueda("No hay pokemones para mostrar");
+    } else {
+      setErrorBusqueda("");
       setPokemon([]);
-    setPokemonFiltrado([]);
-    }else{
       setPokemonFiltrado(res);
     }
   };
+
   return (
     <>
-
-
-     
-
       <FormControl fullWidth sx={{ m: 1 }} variant="standard">
         <Input
           id="standard-adornment-amount"
           onKeyPress={event => {
             if (event.key === 'Enter') {
-              { 
-                if(event.target.value.length > 0){
+              {
+                if (event.target.value.length > 0) {
                   handleChange(event)
-                }else{
+                } else {
                   getAllPokemon();
-                } 
-                
-              
+                }
               }
             }
           }}
@@ -88,7 +85,8 @@ const PokeContent = () => {
           }
         />
       </FormControl>
-       {pokemonFiltrado.length !== 0 ? <h2>{pokemonFiltrado?.name} </h2> : null}
+      {errorBusqueda.length > 1 ? <h1>No hay pokemones para mostrar</h1> : null}
+      {pokemonFiltrado.length !== 0 ? <h2>{pokemonFiltrado?.name} </h2> : null}
       {pokemon.length > 1 ? <> <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       </Box>
         <Box sx={{ flexGrow: 1 }}>

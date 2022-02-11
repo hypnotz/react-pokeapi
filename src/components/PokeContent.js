@@ -26,6 +26,7 @@ const PokeContent = () => {
   const [pokemonFiltrado, setPokemonFiltrado] = useState([]);
 
   const getAllPokemon = async () => {
+    setPokemonFiltrado([]);
     try {
       const res = await getPokemons();
       createPokemonList(res);
@@ -48,29 +49,36 @@ const PokeContent = () => {
   }, []);
 
 
-  const xd = async () => () => {
-    console.log("xdddxdxxddx");
-  }
+  
   const handleChange = async (event) => {
-    console.log("enttro waka")
     const res = await getInformationPokemon(event.target.value);
-    console.log("Pokemon filtrado ", res);
-    setPokemon([]);
-    setPokemonFiltrado(res);
-    console.log("POKE FILTRAADO", pokemonFiltrado)
+    if(res === undefined){
+      setPokemon([]);
+    setPokemonFiltrado([]);
+    }else{
+      setPokemonFiltrado(res);
+    }
   };
   return (
     <>
 
 
-      {pokemonFiltrado != undefined ? <h2>{pokemonFiltrado?.name} </h2> : <p>No existe el pokemon consultado</p>}
+     
 
       <FormControl fullWidth sx={{ m: 1 }} variant="standard">
         <Input
           id="standard-adornment-amount"
           onKeyPress={event => {
             if (event.key === 'Enter') {
-              { handleChange(event) }
+              { 
+                if(event.target.value.length > 0){
+                  handleChange(event)
+                }else{
+                  getAllPokemon();
+                } 
+                
+              
+              }
             }
           }}
           startAdornment={
@@ -80,10 +88,9 @@ const PokeContent = () => {
           }
         />
       </FormControl>
+       {pokemonFiltrado.length !== 0 ? <h2>{pokemonFiltrado?.name} </h2> : null}
       {pokemon.length > 1 ? <> <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-
       </Box>
-
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {pokemon?.map((pokemon, indice) => (

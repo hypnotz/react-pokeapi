@@ -30,7 +30,7 @@ const PokeContent = () => {
   const [nextPage, setNextPage] = useState(1);
 
 
-  const getAllPokemon = async (offset) => {
+  const getAllPokemon = async () => {
     setPokemon([]);
     setErrorBusqueda("");
     setPokemonFiltrado([]);
@@ -46,7 +46,8 @@ const PokeContent = () => {
   const createPokemonList = (results) => {
     results.map(async x => {
       const res = await getInformationPokemon(x.name);
-      setPokemon(list => [...list, res])
+      setPokemon(list => [...list, res]);
+      console.log("restful ", res);
 
     })
   }
@@ -166,10 +167,8 @@ const PokeContent = () => {
             ))}
           </Grid>
         </Box>  </> : null}
-
       {nextPage <= pages ? <Button onClick={() => { setCountOffSet(countOffSet + 25); setNextPage(nextPage + 1); }}>Página Siguiente</Button> : <h1>Paginacionxd</h1>}
       {nextPage > 1 ? <Button onClick={() => { setCountOffSet(countOffSet - 25); setNextPage(nextPage - 1); }}>Página Atras</Button> : <></>}
-
     </>
   );
 };

@@ -32,7 +32,8 @@ const PokeInfo = () => {
     const [pokemonExtra, setPokemonExtra] = useState([]);
     const [pokeImage, setPokeImage] = useState([]);
     const [pokeAbility, setPokeAbility] = useState([]);
-    
+    const [pokeStats, setPokeStats] = useState([]);
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -50,13 +51,20 @@ const PokeInfo = () => {
             setPokeImage(previousState => [...previousState, res.sprites["front_default"]]);
             setPokeImage(previousState => [...previousState, res.sprites["back_default"]]);
             setPokeAbility(previousState => [...previousState, res.abilities[0].ability.name]);
+            setPokeStats(previousState => [...previousState, res.stats[1].stat.name,res.stats[1].base_stat,res.stats[2].stat.name,res.stats[2].base_stat]);
             // await setPokeAbility(previousState => [...previousState, res.ability.name])
             console.log("Habilidad ", res.abilities[0].ability.name);
+            console.log("Base stats", res.stats[1].base_stat);
+            console.log("stats", res.stats[1].stat.name);
             return;
         } catch (ex) {
             console.log(ex);
         }
     }
+
+    useEffect(() => {
+        console.log("Ron ", pokeStats);
+    }, [pokeStats])
 
     return (
         <>
@@ -104,6 +112,12 @@ const PokeInfo = () => {
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Habilidad principal: {pokeAbility}
+                        </Typography>
+                        <Typography variant="" color="text.secondary">
+                            Stats: {pokeStats[0]} {pokeStats[1]} {pokeStats[2]} {pokeStats[3]}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Experiencia base:  {pokemonExtra.base_experience}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>

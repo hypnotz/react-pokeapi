@@ -53,6 +53,7 @@ const PokeContent = () => {
   const handleChange = async (event) => {
     const res = await getInformationPokemon(event.target.value);
     if (res === undefined) {
+      setPokemon([]);
       setPokemonFiltrado([]);
       setErrorBusqueda("No hay pokemones para mostrar");
     } else {
@@ -86,7 +87,42 @@ const PokeContent = () => {
         />
       </FormControl>
       {errorBusqueda.length > 1 ? <h1>No hay pokemones para mostrar</h1> : null}
-      {pokemonFiltrado.length !== 0 ? <h2>{pokemonFiltrado?.name} </h2> : null}
+      {pokemonFiltrado.length !== 0 ?
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid item xs={2} sm={4} md={4}>
+              <Card sx={{ maxWidth: 250 }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    alt=""
+                    src={pokemonFiltrado?.sprites["front_default"]}
+                  />
+                   <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {pokemonFiltrado?.id} {pokemonFiltrado?.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {pokemonFiltrado?.types[0]?.type.name} {pokemonFiltrado?.types[1]?.type.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+
+                      </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Link to={`/pokemon/${pokemonFiltrado?.name}`}>
+                    <Button size="small" color="primary">
+                      MOSTRAR INFO ADICIONAL
+                    </Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
+        : null}
       {pokemon.length > 1 ? <> <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       </Box>
         <Box sx={{ flexGrow: 1 }}>

@@ -59,6 +59,7 @@ const PokeInfo = () => {
     const [expanded, setExpanded] = React.useState(false);
     const [pokemonExtra, setPokemonExtra] = useState([]);
     const [pokeImage, setPokeImage] = useState([]);
+    const [pokeAbility, setPokeAbility] = useState([]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -72,19 +73,19 @@ const PokeInfo = () => {
     const getInfoExtraPoke = async (name) => {
         try {
             const res = await getInformationPokemon(name);
-            console.log("Result xd ", res.sprites);
-            await setPokemonExtra(res);
-            await setPokeImage(previousState => [...previousState, res.sprites["front_default"]]);
-            await setPokeImage(previousState => [...previousState, res.sprites["back_shiny"]]);
+            console.log("Result xd ", res);
+            setPokemonExtra(res);
+            setPokeImage(previousState => [...previousState, res.sprites["front_default"]]);
+            setPokeImage(previousState => [...previousState, res.sprites["back_shiny"]]);
+            setPokeAbility(previousState => [...previousState, res.abilities[0].ability.name]);
+            // await setPokeAbility(previousState => [...previousState, res.ability.name])
+            console.log("Habilidad ", res.abilities[0].ability.name);
         } catch (ex) {
             console.log(ex);
         }
     }
 
-    useEffect(() => {
-        console.log()
-    }, [pokeImage])
-
+ 
     return (
         <>
             <Header />
@@ -118,9 +119,19 @@ const PokeInfo = () => {
                     </Grid>
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            This impressive paella is a perfect party dish and a fun meal to cook
-                            together with your guests. Add 1 cup of frozen peas along with the mussels,
-                            if you like.
+                            ID: {pokemonExtra.id}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Altura: {pokemonExtra.height}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Anchura: {pokemonExtra.weight}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Clasificación: {pokemonExtra.order}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Habilidad principal: {pokeAbility}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>

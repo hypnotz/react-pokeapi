@@ -88,7 +88,7 @@ const PokeContent = () => {
       {pokemonFiltrado.length !== 0 ?
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={{ xs: 2, md: 2, lg: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            <Grid item xs={2} sm={2} md={2} >
+            <Grid item xs={6} sm={6} md={2} >
               <Card sx={{ maxWidth: 320 }}>
                 <CardActionArea>
                   <Grid style={{ color: 'white', backgroundColor: '#e91e63', textAlign: 'center' }}>
@@ -131,7 +131,7 @@ const PokeContent = () => {
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={{ xs: 2, md: 2, lg: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {pokemon?.map((pokemon, indice) => (
-              <Grid item xs={2} sm={2} md={2} key={indice} >
+              <Grid item xs={6} sm={6} md={2} key={indice} >
                 <Card sx={{ maxWidth: 320 }}>
                   <CardActionArea>
                     <Grid style={{ color: 'white', backgroundColor: '#e91e63', textAlign: 'center' }}>

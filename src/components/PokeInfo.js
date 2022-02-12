@@ -51,7 +51,7 @@ const PokeInfo = () => {
             setPokeImage(previousState => [...previousState, res.sprites["front_default"]]);
             setPokeImage(previousState => [...previousState, res.sprites["back_default"]]);
             setPokeAbility(previousState => [...previousState, res.abilities[0].ability.name]);
-            setPokeStats(previousState => [...previousState, res.stats[1].stat.name,res.stats[1].base_stat,res.stats[2].stat.name,res.stats[2].base_stat]);
+            setPokeStats(previousState => [...previousState, res.stats[1].stat.name, res.stats[1].base_stat, res.stats[2].stat.name, res.stats[2].base_stat]);
             // await setPokeAbility(previousState => [...previousState, res.ability.name])
             console.log("Habilidad ", res.abilities[0].ability.name);
             console.log("Base stats", res.stats[1].base_stat);

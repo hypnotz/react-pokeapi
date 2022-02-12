@@ -24,7 +24,7 @@ import SearchIcon from "@mui/icons-material/Search";
 const PokeContent = () => {
   const [pokemon, setPokemon] = useState([]);
   const [pokemonFiltrado, setPokemonFiltrado] = useState([]);
-  const [errorBusqueda, setErrorBusqueda] = useState("");
+  const [errorBusqueda, setErrorBusqueda] = useState(false);
   const [countOffSet, setCountOffSet] = useState(0);
   const [pages, setPages] = useState(0);
   const [nextPage, setNextPage] = useState(1);
@@ -32,7 +32,7 @@ const PokeContent = () => {
 
   const getAllPokemon = async () => {
     setPokemon([]);
-    setErrorBusqueda("");
+    setErrorBusqueda(false);
     setPokemonFiltrado([]);
     try {
       const res = await getPokemons(countOffSet);
@@ -61,7 +61,7 @@ const PokeContent = () => {
     if (res === undefined) {
       setPokemon([]);
       setPokemonFiltrado([]);
-      setErrorBusqueda("No hay pokemones para mostrar");
+      setErrorBusqueda(true);
     } else {
       setErrorBusqueda("");
       setPokemon([]);
@@ -71,7 +71,7 @@ const PokeContent = () => {
 
   return (
     <>
-      <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+      <FormControl fullWidth sx={{ m: 1}} variant="standard">
         <Input
           id="standard-adornment-amount"
           onKeyPress={event => {
@@ -92,17 +92,17 @@ const PokeContent = () => {
           }
         />
       </FormControl>
-      {errorBusqueda.length > 1 ? <h1>No hay pokemones para mostrar</h1> : null}
+      {errorBusqueda ? <h1>No hay pokemones para mostrar</h1> : null}
       {pokemonFiltrado.length !== 0 ?
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            <Grid item xs={2} sm={4} md={4}>
-              <Card sx={{ maxWidth: 250 }}>
+            <Grid item xs={12} sm={12} md={12}>
+              <Card sx={{ maxWidth: 300 }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    height="140"
-                    alt=""
+                    height="150"
+                    alt={pokemonFiltrado?.name}
                     src={pokemonFiltrado?.sprites["front_default"]}
                   />
                   <CardContent>
@@ -129,23 +129,25 @@ const PokeContent = () => {
           </Grid>
         </Box>
         : null}
-      {pokemon.length > 1 ? <> <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-      </Box>
+      {pokemon.length > 1 ? <>
+
+
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid container spacing={{ xs: 2, md: 2, lg: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {pokemon?.map((pokemon, indice) => (
-              <Grid item xs={2} sm={4} md={4} key={indice} >
-                <Card sx={{ maxWidth: 250 }}>
+              <Grid item xs={2} sm={2} md={2} key={indice} >
+                <Card sx={{ maxWidth: 320 }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      height="140"
+                      height="150"
+                      width="900"
                       alt=""
                       src={pokemon?.sprites["front_default"]}
                     />
                     <CardContent >
                       <Typography gutterBottom variant="h5" component="div">
-                        {pokemon?.id}
+                        ID {pokemon?.id}
                       </Typography>
                       <Typography gutterBottom variant="h5" component="div">
                         {pokemon?.name}
@@ -158,7 +160,7 @@ const PokeContent = () => {
                   <CardActions>
                     <Link to={`/pokemon/${pokemon?.name}`}>
                       <Button size="small" color="primary">
-                        MOSTRAR INFO ADICIONAL
+                         VER INFO ADICIONAL
                       </Button>
                     </Link>
                   </CardActions>

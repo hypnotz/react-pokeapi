@@ -171,7 +171,7 @@ const PokeContent = () => {
           </Grid>
         </Box>  </> : null}
       <Grid>
-        <Grid xs={6} sx={{ m: 2 }}>
+        <Grid xs={6} item sx={{ m: 2 }}>
           {nextPage <= pages ?
             <Button variant="contained" size="small"
               onClick={() => {
@@ -180,7 +180,7 @@ const PokeContent = () => {
               }}>
               Página Siguiente</Button> : <></>}
         </Grid>
-        <Grid xs={6} sx={{ m: 2 }}>
+        <Grid xs={6} item sx={{ m: 2 }}>
           {nextPage > 1 ?
             <Button variant="contained" size="small"
               onClick={() => {

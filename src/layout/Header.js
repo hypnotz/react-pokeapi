@@ -2,9 +2,9 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const Header = () => {
   return (
@@ -19,9 +19,9 @@ const Header = () => {
             sx={{ mr: 2 }}
           >
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            POKEDEX
-          </Typography>
+          <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }}>
+           POKEDEX API
+          </Link>
           <Box
             component="img"
             sx={{

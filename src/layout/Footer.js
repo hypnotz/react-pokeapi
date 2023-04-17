@@ -11,7 +11,7 @@ const Footer = () => {
                 color="white"
             >
                 <Grid style={{textAlign:'center'}}>
-                    Pokedex desarrollada por Iván Solís
+                    Desarrollada en React
                 </Grid>
             </Box>
         </footer>

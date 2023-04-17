@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 
-
 const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -17,10 +16,9 @@ const Header = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-          >
-          </IconButton>
-          <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }}>
-           POKEDEX API
+          ></IconButton>
+          <Link to={`/`} style={{ textDecoration: "none", color: "white" }}>
+            POKEDEX API
           </Link>
           <Box
             component="img"
@@ -31,8 +29,6 @@ const Header = () => {
             alt="pokeImagen"
             src="https://www.pngplay.com/wp-content/uploads/2/Pokeball-PNG-Photo-Image.png"
           />
-
-
         </Toolbar>
       </AppBar>
     </Box>

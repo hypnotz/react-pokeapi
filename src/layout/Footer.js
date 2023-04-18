@@ -26,8 +26,14 @@ const Footer = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        style={{ backgroundColor: "#263238" }}
       >
-        <p>Desarrollado en <a href="https://es.reactjs.org/" target="_blank">React</a></p>
+        <p style={{ color: "#ffff" }}>
+          Desarrollado en{" "}
+          <a href="https://es.reactjs.org/" target="_blank">
+            React
+          </a>
+        </p>
         {/* <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
         <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} /> */}

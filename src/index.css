@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(45deg, #9013FE 15%, #50E3C2 90%);
+  /* background: linear-gradient(45deg, #9013FE 15%, #50E3C2 90%); */
   /* background-image: url("https://fondosmil.com/fondo/21793.png"); */
 }
 

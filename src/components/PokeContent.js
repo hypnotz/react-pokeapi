@@ -63,194 +63,187 @@ const PokeContent = () => {
 
   return (
     <>
-      <Box>
-        <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-          <Input
-            id="standard-adornment-amount"
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
-                {
-                  if (event.target.value.length > 0) {
-                    handleChange(event);
-                  } else {
-                    getAllPokemon();
-                  }
+      <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+        <Input
+          color="secondary"
+          id="standard-adornment-amount"
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              {
+                if (event.target.value.length > 0) {
+                  handleChange(event);
+                } else {
+                  getAllPokemon();
                 }
               }
-            }}
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
             }
-          />
-        </FormControl>
-        {errorBusqueda ? <h1>El pokemon no existe</h1> : null}
-        {pokemonFiltrado.length !== 0 ? (
+          }}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+
+      {errorBusqueda ? <h1>El pokemon no existe</h1> : null}
+      {pokemonFiltrado.length !== 0 ? (
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 2, lg: 2 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            <Grid item xs={6} sm={6} md={2}>
+              <Card sx={{ maxWidth: 320 }}>
+                <CardActionArea>
+                  <Grid
+                    style={{
+                      color: "white",
+                      backgroundColor: "#e91e63",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography gutterBottom variant="body1" component="div">
+                      ID {pokemonFiltrado?.id} / {pokemonFiltrado?.name}
+                    </Typography>
+                  </Grid>
+                  <CardMedia
+                    component="img"
+                    height="150"
+                    width="900"
+                    alt=""
+                    src={pokemonFiltrado?.sprites["front_default"]}
+                    style={{ backgroundColor: "#10C1AB" }}
+                  />
+                  <CardContent>
+                    <Typography variant="body1">
+                      Tipo: {pokemonFiltrado?.types[0]?.type.name}{" "}
+                      {pokemonFiltrado?.types[1]?.type.name}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <Grid>
+                  <Grid>
+                    <CardActions>
+                      <Link
+                        to={`/pokemon/${pokemonFiltrado?.name}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Button variant="contained" size="small">
+                          INFORMACION EXTRA
+                        </Button>
+                      </Link>
+                    </CardActions>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : null}
+      {pokemon.length > 1 ? (
+        <>
           <Box sx={{ flexGrow: 1 }}>
             <Grid
               container
               spacing={{ xs: 2, md: 2, lg: 2 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              <Grid item xs={6} sm={6} md={2}>
-                <Card sx={{ maxWidth: 320 }}>
-                  <CardActionArea>
-                    <Grid
-                      style={{
-                        color: "white",
-                        backgroundColor: "#e91e63",
-                        textAlign: "center",
-                      }}
-                    >
-                      <Typography gutterBottom variant="body1" component="div">
-                        ID {pokemonFiltrado?.id} / {pokemonFiltrado?.name}
-                      </Typography>
-                    </Grid>
-                    <CardMedia
-                      component="img"
-                      height="150"
-                      width="900"
-                      alt=""
-                      src={pokemonFiltrado?.sprites["front_default"]}
-                      style={{ backgroundColor: "#10C1AB" }}
-                    />
-                    <CardContent>
-                      <Typography variant="body1">
-                        Tipo: {pokemonFiltrado?.types[0]?.type.name}{" "}
-                        {pokemonFiltrado?.types[1]?.type.name}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <Grid>
-                    <Grid>
-                      <CardActions>
-                        <Link
-                          to={`/pokemon/${pokemonFiltrado?.name}`}
-                          style={{ textDecoration: "none" }}
+              {pokemon?.map((pokemon, indice) => (
+                <Grid item xs={6} sm={6} md={2} key={indice}>
+                  <Card sx={{ maxWidth: 320 }}>
+                    <CardActionArea>
+                      <Grid
+                        style={{
+                          color: "white",
+                          backgroundColor: "#e91e63",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          style={{ whiteSpace: "nowrap" }}
                         >
-                          <Button variant="contained" size="small">
-                            INFORMACION EXTRA
-                          </Button>
-                        </Link>
-                      </CardActions>
-                    </Grid>
-                  </Grid>
-                </Card>
-              </Grid>
-            </Grid>
-          </Box>
-        ) : null}
-        {pokemon.length > 1 ? (
-          <>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid
-                container
-                spacing={{ xs: 2, md: 2, lg: 2 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}
-              >
-                {pokemon?.map((pokemon, indice) => (
-                  <Grid item xs={6} sm={6} md={2} key={indice}>
-                    <Card sx={{ maxWidth: 320 }}>
-                      <CardActionArea>
-                        <Grid
-                          style={{
-                            color: "white",
-                            backgroundColor: "#e91e63",
-                            textAlign: "center",
-                          }}
-                        >
-                          <Typography
-                            variant="h6"
-                            component="h6"
-                            style={{ whiteSpace: "nowrap" }}
-                          >
-                            ID {pokemon?.id} | {pokemon?.name}
-                          </Typography>
-                          {/* <Typography
-                            gutterBottom
-                            variant="body1"
-                            component="div"
-                          >
-                            ID {pokemon?.id} | {pokemon?.name}
-                          </Typography> */}
-                        </Grid>
-                        <CardMedia
-                          component="img"
-                          height="150"
-                          width="900"
-                          alt=""
-                          src={pokemon?.sprites["front_default"]}
-                          style={{ backgroundColor: "#10C1AB" }}
-                        />
-                        <CardContent>
-                          <Typography variant="body1">
-                            Tipo: {pokemon?.types[0]?.type.name}{" "}
-                            {pokemon?.types[1]?.type.name}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <Grid>
-                        <Grid>
-                          <CardActions>
-                            <Link
-                              to={`/pokemon/${pokemon?.name}`}
-                              style={{ textDecoration: "none" }}
-                            >
-                              <Button variant="contained" size="small">
-                                INFORMACION EXTRA
-                              </Button>
-                            </Link>
-                          </CardActions>
-                        </Grid>
+                          ID {pokemon?.id} | {pokemon?.name}
+                        </Typography>
                       </Grid>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>{" "}
-          </>
-        ) : null}
+                      <CardMedia
+                        component="img"
+                        height="150"
+                        width="900"
+                        alt=""
+                        src={pokemon?.sprites["front_default"]}
+                        style={{ backgroundColor: "#10C1AB" }}
+                      />
+                      <CardContent>
+                        <Typography variant="body1">
+                          Tipo: {pokemon?.types[0]?.type.name}{" "}
+                          {pokemon?.types[1]?.type.name}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <Grid>
+                      <Grid>
+                        <CardActions>
+                          <Link
+                            to={`/pokemon/${pokemon?.name}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <Button variant="contained" size="small">
+                              INFORMACION EXTRA
+                            </Button>
+                          </Link>
+                        </CardActions>
+                      </Grid>
+                    </Grid>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>{" "}
+        </>
+      ) : null}
 
-        <Box>
-          <Grid container sx={{ pt: 2 }} spacing={2}>
-            <Grid item xs={6}>
-              {nextPage > 1 ? (
+      <Box>
+        <Grid container sx={{ pt: 2 }} spacing={2}>
+          <Grid item xs={6}>
+            {nextPage > 1 ? (
+              <Button
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  setCountOffSet(countOffSet - 24);
+                  setNextPage(nextPage - 1);
+                }}
+              >
+                Página Anterior
+              </Button>
+            ) : (
+              <></>
+            )}
+          </Grid>
+          <Grid item xs={6}>
+            <Box display="flex" justifyContent="flex-end">
+              {nextPage <= pages ? (
                 <Button
                   variant="contained"
                   size="small"
                   onClick={() => {
-                    setCountOffSet(countOffSet - 24);
-                    setNextPage(nextPage - 1);
+                    setCountOffSet(countOffSet + 24);
+                    setNextPage(nextPage + 1);
                   }}
                 >
-                  Página Anterior
+                  Página Siguiente
                 </Button>
               ) : (
                 <></>
               )}
-            </Grid>
-            <Grid item xs={6}>
-              <Box display="flex" justifyContent="flex-end">
-                {nextPage <= pages ? (
-                  <Button
-                    variant="contained"
-                    size="small"
-                    onClick={() => {
-                      setCountOffSet(countOffSet + 24);
-                      setNextPage(nextPage + 1);
-                    }}
-                  >
-                    Página Siguiente
-                  </Button>
-                ) : (
-                  <></>
-                )}
-              </Box>
-              <></>
-            </Grid>
+            </Box>
+            <></>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
     </>
   );

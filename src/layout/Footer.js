@@ -27,9 +27,10 @@ const Footer = () => {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+        <p>Desarrollado en <a href="https://es.reactjs.org/" target="_blank">React</a></p>
+        {/* <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+        <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} /> */}
       </BottomNavigation>
     </Paper>
   );

@@ -9,7 +9,7 @@ import { Button } from "@mui/material";
 const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: '#ef5350' }}>
         <Toolbar>
           <IconButton
             size="large"

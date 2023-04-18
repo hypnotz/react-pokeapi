@@ -18,6 +18,7 @@ import FormControl from "@mui/material/FormControl";
 import SearchIcon from "@mui/icons-material/Search";
 
 const PokeContent = () => {
+  const totalPokemones = 18;
   const [pokemon, setPokemon] = useState([]);
   const [pokemonFiltrado, setPokemonFiltrado] = useState([]);
   const [errorBusqueda, setErrorBusqueda] = useState(false);
@@ -30,9 +31,10 @@ const PokeContent = () => {
     setErrorBusqueda(false);
     setPokemonFiltrado([]);
     try {
+      console.log("Thiss ", totalPokemones);
       const res = await getPokemons(countOffSet);
       createPokemonList(res.results);
-      setPages(Math.ceil(res.count / 25));
+      setPages(Math.ceil(res.count / totalPokemones));
     } catch (ex) {
       console.log(ex);
     }
@@ -214,7 +216,7 @@ const PokeContent = () => {
                 variant="contained"
                 size="small"
                 onClick={() => {
-                  setCountOffSet(countOffSet - 24);
+                  setCountOffSet(countOffSet - (totalPokemones - 1));
                   setNextPage(nextPage - 1);
                 }}
               >
@@ -231,7 +233,7 @@ const PokeContent = () => {
                   variant="contained"
                   size="small"
                   onClick={() => {
-                    setCountOffSet(countOffSet + 24);
+                    setCountOffSet(countOffSet + (totalPokemones));
                     setNextPage(nextPage + 1);
                   }}
                 >

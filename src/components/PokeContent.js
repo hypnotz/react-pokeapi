@@ -204,30 +204,16 @@ const PokeContent = () => {
             </Box>{" "}
           </>
         ) : null}
-        <Grid>
-          <Grid xs={6} item sx={{ m: 2 }}>
-            {nextPage <= pages ? (
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => {
-                  setCountOffSet(countOffSet + 25);
-                  setNextPage(nextPage + 1);
-                }}
-              >
-                Página Siguiente
-              </Button>
-            ) : (
-              <></>
-            )}
-          </Grid>
-          <Grid xs={6} item sx={{ m: 2 }}>
+      
+      <Box>
+        <Grid container  sx={{ pt: 2 }} spacing={2}>
+          <Grid item xs={6}>
             {nextPage > 1 ? (
               <Button
                 variant="contained"
                 size="small"
                 onClick={() => {
-                  setCountOffSet(countOffSet - 25);
+                  setCountOffSet(countOffSet - 24);
                   setNextPage(nextPage - 1);
                 }}
               >
@@ -237,7 +223,28 @@ const PokeContent = () => {
               <></>
             )}
           </Grid>
+          <Grid  item xs={6}>
+            <Box display="flex" justifyContent="flex-end">
+              {nextPage <= pages ? (
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => {
+                    setCountOffSet(countOffSet + 24);
+                    setNextPage(nextPage + 1);
+                  }}
+                >
+                  Página Siguiente
+                </Button>
+              ) : (
+                <></>
+              )}
+            </Box>
+              <></>
+          </Grid>
+       
         </Grid>
+        </Box>
       </Box>
     </>
   );

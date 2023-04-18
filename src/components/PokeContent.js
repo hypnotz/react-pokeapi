@@ -161,12 +161,19 @@ const PokeContent = () => {
                           }}
                         >
                           <Typography
+                            variant="h6"
+                            component="h6"
+                            style={{ whiteSpace: "nowrap" }}
+                          >
+                            ID {pokemon?.id} | {pokemon?.name}
+                          </Typography>
+                          {/* <Typography
                             gutterBottom
                             variant="body1"
                             component="div"
                           >
-                            ID {pokemon?.id} / {pokemon?.name}
-                          </Typography>
+                            ID {pokemon?.id} | {pokemon?.name}
+                          </Typography> */}
                         </Grid>
                         <CardMedia
                           component="img"
@@ -204,46 +211,45 @@ const PokeContent = () => {
             </Box>{" "}
           </>
         ) : null}
-      
-      <Box>
-        <Grid container  sx={{ pt: 2 }} spacing={2}>
-          <Grid item xs={6}>
-            {nextPage > 1 ? (
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => {
-                  setCountOffSet(countOffSet - 24);
-                  setNextPage(nextPage - 1);
-                }}
-              >
-                Página Anterior
-              </Button>
-            ) : (
-              <></>
-            )}
-          </Grid>
-          <Grid  item xs={6}>
-            <Box display="flex" justifyContent="flex-end">
-              {nextPage <= pages ? (
+
+        <Box>
+          <Grid container sx={{ pt: 2 }} spacing={2}>
+            <Grid item xs={6}>
+              {nextPage > 1 ? (
                 <Button
                   variant="contained"
                   size="small"
                   onClick={() => {
-                    setCountOffSet(countOffSet + 24);
-                    setNextPage(nextPage + 1);
+                    setCountOffSet(countOffSet - 24);
+                    setNextPage(nextPage - 1);
                   }}
                 >
-                  Página Siguiente
+                  Página Anterior
                 </Button>
               ) : (
                 <></>
               )}
-            </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <Box display="flex" justifyContent="flex-end">
+                {nextPage <= pages ? (
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => {
+                      setCountOffSet(countOffSet + 24);
+                      setNextPage(nextPage + 1);
+                    }}
+                  >
+                    Página Siguiente
+                  </Button>
+                ) : (
+                  <></>
+                )}
+              </Box>
               <></>
+            </Grid>
           </Grid>
-       
-        </Grid>
         </Box>
       </Box>
     </>

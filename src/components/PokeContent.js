@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Loading from "../layout/Loading";
 import {
   getPokemons,
   getInformationPokemon,
@@ -26,28 +27,34 @@ const PokeContent = () => {
   const [pages, setPages] = useState(0);
   const [nextPage, setNextPage] = useState(1);
   const [visiblePaginador, setVisiblePaginador] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAllPokemon = async () => {
     setPokemon([]);
     setErrorBusqueda(false);
     setPokemonFiltrado([]);
     try {
+      setIsLoading(true);
       setVisiblePaginador(false);
-      console.log("Thiss ", totalPokemones);
-      const res = await getPokemons(countOffSet);
-      createPokemonList(res.results);
-      setPages(Math.ceil(res.count / totalPokemones));
+
+      setTimeout(async () => {
+        console.log("Thiss ", totalPokemones);
+        const res = await getPokemons(countOffSet);
+        createPokemonList(res.results);
+        setPages(Math.ceil(res.count / totalPokemones));
+      }, 1000);
     } catch (ex) {
       console.log(ex);
     }
   };
 
-  const createPokemonList =  (results) => {
+  const createPokemonList = (results) => {
     setPokemon([]);
     results.map(async (x) => {
       const res = await getInformationPokemon(x.name);
       setPokemon((list) => [...list, res]);
     });
+    setIsLoading(false);
     setVisiblePaginador(true);
     console.log("Next page ", nextPage);
   };
@@ -70,6 +77,8 @@ const PokeContent = () => {
 
   return (
     <>
+     
+      {isLoading === false ? <></> : null}
       <FormControl fullWidth sx={{ m: 1 }} variant="standard">
         <Input
           color="secondary"
@@ -92,6 +101,11 @@ const PokeContent = () => {
           }
         />
       </FormControl>
+      {isLoading ? (
+        <>
+          <Loading />
+        </>
+      ) : null}
 
       {errorBusqueda ? <h1>El pokemon no existe</h1> : null}
       {pokemonFiltrado.length !== 0 ? (

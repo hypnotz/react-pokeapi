@@ -45,9 +45,9 @@ const Home = () => {
             <PokeContent />
           </Container>
         </main>
-        {/* <footer className={classes.footer}>
+        <footer className={classes.footer}>
           <Footer />
-        </footer> */}
+        </footer>
       </div>
     </>
   );

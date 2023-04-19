@@ -49,6 +49,7 @@ const PokeContent = () => {
       setPokemon((list) => [...list, res]);
     });
     setVisiblePaginador(true);
+    console.log("Next page ", nextPage);
   };
   useEffect(() => {
     getAllPokemon(countOffSet);
@@ -223,11 +224,11 @@ const PokeContent = () => {
                       variant="contained"
                       size="small"
                       onClick={() => {
-                        setCountOffSet(countOffSet + totalPokemones);
-                        setNextPage(nextPage + 1);
+                        setCountOffSet(countOffSet - totalPokemones);
+                        setNextPage(nextPage - 1);
                       }}
                     >
-                      Página Siguiente
+                      Página Atras
                     </Button>
                   </>
                 ) : null}

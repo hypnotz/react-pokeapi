@@ -23,7 +23,6 @@ const Footer = () => {
       <BottomNavigation
         showLabels
         value={value}
-      
         style={{ backgroundColor: "#263238" }}
       >
         <p style={{ color: "#ffff" }}>

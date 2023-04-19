@@ -9,7 +9,7 @@ import { Button } from "@mui/material";
 const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#ef5350' }}>
+      <AppBar position="static" style={{ background: "#ef5350" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -17,22 +17,18 @@ const Header = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-          >
-          </IconButton>
-          <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }}>
-           POKEDEX API
+          ></IconButton>
+          <Link to={`/`} style={{ textDecoration: "none", color: "white" }}>
+            <Box
+              component="img"
+              sx={{
+                height: 60,
+                width: 60,
+              }}
+              alt="pokeImagen"
+              src="https://www.pngplay.com/wp-content/uploads/2/Pokeball-PNG-Photo-Image.png"
+            />
           </Link>
-          <Box
-            component="img"
-            sx={{
-              height: 60,
-              width: 60,
-            }}
-            alt="pokeImagen"
-            src="https://www.pngplay.com/wp-content/uploads/2/Pokeball-PNG-Photo-Image.png"
-          />
-
-
         </Toolbar>
       </AppBar>
     </Box>

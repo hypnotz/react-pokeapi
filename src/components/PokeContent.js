@@ -38,7 +38,6 @@ const PokeContent = () => {
       setVisiblePaginador(false);
 
       setTimeout(async () => {
-        console.log("Thiss ", totalPokemones);
         const res = await getPokemons(countOffSet);
         createPokemonList(res.results);
         setPages(Math.ceil(res.count / totalPokemones));
@@ -172,7 +171,7 @@ const PokeContent = () => {
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
               {pokemon?.map((pokemon, indice) => (
-                <Grid item xs={6} sm={6} md={2} key={indice}>
+                <Grid item xs={2} sm={6} md={2} key={indice}>
                   <Card sx={{ maxWidth: 320 }}>
                     <CardActionArea>
                       <Grid

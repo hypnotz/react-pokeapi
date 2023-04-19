@@ -42,7 +42,7 @@ const PokeContent = () => {
         const res = await getPokemons(countOffSet);
         createPokemonList(res.results);
         setPages(Math.ceil(res.count / totalPokemones));
-      }, 1000);
+      }, 500);
     } catch (ex) {
       console.log(ex);
     }

@@ -23,9 +23,7 @@ const Footer = () => {
       <BottomNavigation
         showLabels
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+      
         style={{ backgroundColor: "#263238" }}
       >
         <p style={{ color: "#ffff" }}>

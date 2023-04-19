@@ -25,12 +25,14 @@ const PokeContent = () => {
   const [countOffSet, setCountOffSet] = useState(0);
   const [pages, setPages] = useState(0);
   const [nextPage, setNextPage] = useState(1);
+  const [visiblePaginador, setVisiblePaginador] = useState(false);
 
   const getAllPokemon = async () => {
     setPokemon([]);
     setErrorBusqueda(false);
     setPokemonFiltrado([]);
     try {
+      setVisiblePaginador(false);
       console.log("Thiss ", totalPokemones);
       const res = await getPokemons(countOffSet);
       createPokemonList(res.results);
@@ -40,11 +42,13 @@ const PokeContent = () => {
     }
   };
 
-  const createPokemonList = (results) => {
+  const createPokemonList =  (results) => {
+    setPokemon([]);
     results.map(async (x) => {
       const res = await getInformationPokemon(x.name);
       setPokemon((list) => [...list, res]);
     });
+    setVisiblePaginador(true);
   };
   useEffect(() => {
     getAllPokemon(countOffSet);
@@ -212,16 +216,22 @@ const PokeContent = () => {
         <Grid container sx={{ pt: 2 }} spacing={2}>
           <Grid item xs={6}>
             {nextPage > 1 ? (
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => {
-                  setCountOffSet(countOffSet - (totalPokemones - 1));
-                  setNextPage(nextPage - 1);
-                }}
-              >
-                Página Anterior
-              </Button>
+              <>
+                {visiblePaginador ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={() => {
+                        setCountOffSet(countOffSet + totalPokemones);
+                        setNextPage(nextPage + 1);
+                      }}
+                    >
+                      Página Siguiente
+                    </Button>
+                  </>
+                ) : null}
+              </>
             ) : (
               <></>
             )}
@@ -229,16 +239,22 @@ const PokeContent = () => {
           <Grid item xs={6}>
             <Box display="flex" justifyContent="flex-end">
               {nextPage <= pages ? (
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={() => {
-                    setCountOffSet(countOffSet + (totalPokemones));
-                    setNextPage(nextPage + 1);
-                  }}
-                >
-                  Página Siguiente
-                </Button>
+                <>
+                  {visiblePaginador ? (
+                    <>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={() => {
+                          setCountOffSet(countOffSet + totalPokemones);
+                          setNextPage(nextPage + 1);
+                        }}
+                      >
+                        Página Siguiente
+                      </Button>
+                    </>
+                  ) : null}
+                </>
               ) : (
                 <></>
               )}

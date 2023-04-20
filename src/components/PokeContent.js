@@ -76,7 +76,6 @@ const PokeContent = () => {
 
   return (
     <>
-     
       {isLoading === false ? <></> : null}
       <FormControl fullWidth sx={{ m: 1 }} variant="standard">
         <Input
@@ -167,8 +166,8 @@ const PokeContent = () => {
           <Box sx={{ flexGrow: 1 }}>
             <Grid
               container
-              spacing={{ xs: 2, md: 2, lg: 2 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
+              spacing={{ xs: 2, md: 1, lg: 2 }}
+              columns={{ xs: 4, sm: 12, md: 12 }}
             >
               {pokemon?.map((pokemon, indice) => (
                 <Grid item xs={2} sm={6} md={2} key={indice}>

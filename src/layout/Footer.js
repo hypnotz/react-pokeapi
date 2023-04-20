@@ -12,30 +12,38 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
+import FolderIcon from "@mui/icons-material/Folder";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const Footer = () => {
   const [value, setValue] = React.useState(0);
   return (
-    <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-      elevation={3}
+    <Box
+      sx={{
+        width: "auto",
+        height: "auto",
+        backgroundColor: "",
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+      }}
     >
-      <BottomNavigation
-        showLabels
-        value={value}
-        style={{ backgroundColor: "#263238" }}
-      >
-        <p style={{ color: "#ffff" }}>
-          Desarrollado en{" "}
-          <a href="https://es.reactjs.org/" target="_blank">
-            React
-          </a>
-        </p>
-        {/* <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} /> */}
-      </BottomNavigation>
-    </Paper>
+      <Container maxWidth="lg">
+        <Grid container direction="column" alignItems="center">
+          <Grid item xs={12}>
+            <Typography color="black" variant="h5">
+              Desarrollado en <a href="">React</a> y <a href="">Material UI</a>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color="textSecondary" variant="subtitle1">
+              {`${new Date().getFullYear()} | GITHUB | Material UI | Pokemon API`}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

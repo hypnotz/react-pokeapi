@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "78vh",
+    minHeight: "78.9vh",
     
     justifyContent: "center",
   },

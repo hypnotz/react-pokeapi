@@ -107,6 +107,125 @@ const PokeContent = () => {
 
       {errorBusqueda ? <h1>El pokemon no existe</h1> : null}
       {pokemonFiltrado.length !== 0 ? (
+        
+        <>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 1, lg: 2 }}
+            columns={{ xs: 4, sm: 12, md: 12 }}
+          >
+           
+              <Grid item xs={4} sm={8} md={2} >
+                <Card sx={{ maxWidth: 320, maxHeight: 310 }}>
+                  <CardActionArea>
+                    <Grid
+                      style={{
+                        color: "white",
+                        backgroundColor: "#e91e63",
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        component="h6"
+                        style={{ whiteSpace: "nowrap" }}
+                      >
+                        #{pokemonFiltrado?.id}  {pokemonFiltrado?.name}
+                      </Typography>
+                    </Grid>
+                    <Box>
+                    <CardMedia
+                      component="img"
+                      height="150"
+                      width="900"
+                      alt=""
+                      src={pokemonFiltrado?.sprites["front_default"]}
+                      style={{ backgroundColor: "#10C1AB" }}
+                    />
+                    
+                    </Box>
+                    <CardContent >
+                      <Typography variant="body1" style={{textAlign:"center", whiteSpace:"nowrap"}} >
+                        <b>Tipo:</b> {pokemonFiltrado?.types[0]?.type.name}{" "}
+                        {pokemonFiltrado?.types[1]?.type.name}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+               
+                    <Grid >
+                      <CardActions  style={{justifyContent: "center"}}>
+                        <Link
+                          to={`/pokemon/${pokemonFiltrado?.name}`}
+                          style={{ textDecoration: "none"}}
+                        >
+                          <Button variant="contained" size="small" >
+                            INFORMACIÓN EXTRA
+                          </Button>
+                        </Link>
+                      </CardActions>
+                    </Grid>
+                  
+                </Card>
+              </Grid>
+            
+          </Grid>
+        </Box>{" "}
+      </>
+    ) : null}
+{/* 
+    <Box>
+      <Grid container sx={{ pt: 2 }} spacing={2}>
+        <Grid item xs={6}>
+          {nextPage > 1 ? (
+            <>
+              {visiblePaginador ? (
+                <>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => {
+                      setCountOffSet(countOffSet - totalPokemones);
+                      setNextPage(nextPage - 1);
+                    }}
+                  >
+                    Página Atras
+                  </Button>
+                </>
+              ) : null}
+            </>
+          ) : (
+            <></>
+          )}
+        </Grid>
+        <Grid item xs={6}>
+          <Box display="flex" justifyContent="flex-end">
+            {nextPage <= pages ? (
+              <>
+                {visiblePaginador ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={() => {
+                        setCountOffSet(countOffSet + totalPokemones);
+                        setNextPage(nextPage + 1);
+                      }}
+                    >
+                      Página Siguiente
+                    </Button>
+                  </>
+                ) : null}
+              </>
+            ) : (
+              <></>
+            )}
+          </Box>
+          <></>
+        </Grid>
+      </Grid>
+    </Box>
+
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container
@@ -124,7 +243,7 @@ const PokeContent = () => {
                     }}
                   >
                     <Typography gutterBottom variant="body1" component="div">
-                      ID {pokemonFiltrado?.id} / {pokemonFiltrado?.name}
+                       #{pokemonFiltrado?.id} | {pokemonFiltrado?.name}
                     </Typography>
                   </Grid>
                   <CardMedia
@@ -133,7 +252,7 @@ const PokeContent = () => {
                     width="900"
                     alt=""
                     src={pokemonFiltrado?.sprites["front_default"]}
-                    style={{ backgroundColor: "#10C1AB" }}
+                    style={{ backgroundColor: "#10C1AB",maxHeight:"50",maxWidth:"10" }}
                   />
                   <CardContent>
                     <Typography variant="body1">
@@ -160,7 +279,7 @@ const PokeContent = () => {
             </Grid>
           </Grid>
         </Box>
-      ) : null}
+      ) : null} */}
       {pokemon.length > 1 ? (
         <>
           <Box sx={{ flexGrow: 1 }}>
@@ -170,8 +289,8 @@ const PokeContent = () => {
               columns={{ xs: 4, sm: 12, md: 12 }}
             >
               {pokemon?.map((pokemon, indice) => (
-                <Grid item xs={2} sm={6} md={2} key={indice}>
-                  <Card sx={{ maxWidth: 320 }}>
+                <Grid item xs={4} sm={8} md={2} key={indice}>
+                  <Card sx={{ maxWidth: 320, maxHeight: 310 }}>
                     <CardActionArea>
                       <Grid
                         style={{
@@ -185,9 +304,10 @@ const PokeContent = () => {
                           component="h6"
                           style={{ whiteSpace: "nowrap" }}
                         >
-                          ID {pokemon?.id} | {pokemon?.name}
+                          #{pokemon?.id}  {pokemon?.name}
                         </Typography>
                       </Grid>
+                      <Box>
                       <CardMedia
                         component="img"
                         height="150"
@@ -196,27 +316,29 @@ const PokeContent = () => {
                         src={pokemon?.sprites["front_default"]}
                         style={{ backgroundColor: "#10C1AB" }}
                       />
-                      <CardContent>
-                        <Typography variant="body1">
-                          Tipo: {pokemon?.types[0]?.type.name}{" "}
+                      
+                      </Box>
+                      <CardContent >
+                        <Typography variant="body1" style={{textAlign:"center", whiteSpace:"nowrap"}} >
+                          <b>Tipo:</b> {pokemon?.types[0]?.type.name}{" "}
                           {pokemon?.types[1]?.type.name}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <Grid>
-                      <Grid>
-                        <CardActions>
+                 
+                      <Grid >
+                        <CardActions  style={{justifyContent: "center"}}>
                           <Link
                             to={`/pokemon/${pokemon?.name}`}
-                            style={{ textDecoration: "none" }}
+                            style={{ textDecoration: "none"}}
                           >
-                            <Button variant="contained" size="small">
-                              INFORMACION EXTRA
+                            <Button variant="contained" size="small" >
+                              INFORMACIÓN EXTRA
                             </Button>
                           </Link>
                         </CardActions>
                       </Grid>
-                    </Grid>
+                    
                   </Card>
                 </Grid>
               ))}

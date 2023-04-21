@@ -13,20 +13,28 @@ import { getInformationPokemon } from "../services/pokemon.services";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
+import { AppBar } from "@mui/material";
+import Container from "@mui/material/Container"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    background: "linear-gradient(45deg, #9013FE 15%, #50E3C2 90%)",
-    minHeight: "93.3vh",
     display: "flex",
     flexDirection: "column",
+    minHeight: "78vh",
+    
     justifyContent: "center",
   },
-});
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  footer: {
+    marginTop: "auto",
+  },
+}));
+
 const style = {
-  width: "100%",
-  maxWidth: 360,
-  bgcolor: "background.paper",
+ 
 };
 
 const PokeInfo = () => {
@@ -72,95 +80,108 @@ const PokeInfo = () => {
 
   return (
     <>
-      <Header />
-      <Grid
-        container
-        className={classes.root}
-        spacing={0}
-        alignItems="center"
-        justify="center"
-      >
-        <Card sx={{ maxWidth: 345 }}>
-          <Grid
-            style={{
-              color: "white",
-              backgroundColor: "#e91e63",
-              textAlign: "center",
-            }}
+      {/* <Header /> */}
+
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Header />
+        </AppBar>
+        <main className={classes.content}>
+        <Container fixed>
+        <Grid
+            container
+            className={classes.root}
+            spacing={0}
+            alignItems="center"
+            justify="center"
           >
-            <CardHeader
-              title={"ID " + pokemonExtra?.id + " / " + pokemonExtra.name}
-            />
+            <Card sx={{ maxWidth: 345 }}>
+              <Grid
+                style={{
+                  color: "white",
+                  backgroundColor: "#e91e63",
+                  textAlign: "center",
+                }}
+              >
+                <CardHeader
+                  title={"ID " + pokemonExtra?.id + " / " + pokemonExtra.name}
+                />
+              </Grid>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={pokeImage[0]}
+                    alt="Paella dish"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={pokeImage[1]}
+                    alt="Paella dish"
+                  />
+                </Grid>
+              </Grid>
+              <CardContent>
+                <Grid>
+                  <List sx={style} component="nav" aria-label="mailbox folders">
+                    <Divider />
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Habilidad principal: {pokeAbility}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Clasificación: {pokemonExtra.order}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Experiencia base: {pokemonExtra.base_experience}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Ataque: {pokeStats[1]}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Defensa: {pokeStats[3]}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Altura: {pokemonExtra.height}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Anchura: {pokemonExtra.weight}
+                      </Typography>
+                    </ListItem>
+                    <ListItem divider>
+                      <Typography variant="body1" color="text.secondary">
+                        Experiencia base: {pokemonExtra.base_experience}
+                      </Typography>
+                    </ListItem>
+                    <Divider light />
+                  </List>
+                </Grid>
+              </CardContent>
+            </Card>
           </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={pokeImage[0]}
-                alt="Paella dish"
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={pokeImage[1]}
-                alt="Paella dish"
-              />
-            </Grid>
-          </Grid>
-          <CardContent>
-            <Grid>
-              <List sx={style} component="nav" aria-label="mailbox folders">
-                <Divider />
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Habilidad principal: {pokeAbility}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Clasificación: {pokemonExtra.order}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Experiencia base: {pokemonExtra.base_experience}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Ataque: {pokeStats[1]}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Defensa: {pokeStats[3]}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Altura: {pokemonExtra.height}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Anchura: {pokemonExtra.weight}
-                  </Typography>
-                </ListItem>
-                <ListItem divider>
-                  <Typography variant="body1" color="text.secondary">
-                    Experiencia base: {pokemonExtra.base_experience}
-                  </Typography>
-                </ListItem>
-                <Divider light />
-              </List>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Footer />
+          </Container>
+         
+        </main>
+        <footer className={classes.footer}>
+          <Footer />
+        </footer>
+      </div>
     </>
   );
 };
